@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "arn/arn.h"
 #include "ordenacao/bs.h"
 #include "lista/lista.h"
+#include "auxiliares/auxiliares.h"
 
 int main (int argc, char **argv) {
     ARN* A = NULL;
@@ -13,15 +15,23 @@ int main (int argc, char **argv) {
     // printf("Digite uma palavra: ");
     // scanf("%s", palavra);
 
+
+    
+
+    // strcpy(p->palavra, palavra);
+
+    // printf("%s", p->palavra);
+
     // Ordena palavra
     // bubble_sort(palavra);
     // printf("%s", palavra);
 
     // Manipula a árvore rubro negra
-    ARN_Inserir(&A, 10, 10);
-    ARN_Inserir(&A, 1, 1);
-    ARN_Inserir(&A, 8, 8);
-    ARN_Inserir(&A, 5, 5);
+    ARN_Inserir(&A, "amor", 10);
+    ARN_Inserir(&A, "ramo", 1);
+    ARN_Inserir(&A, "ormor", 1);
+    // ARN_Inserir(&A, 8, 8);
+    // ARN_Inserir(&A, 5, 5);
     ARN_Imprimir(A, 2, '*');
 
     // ARN* dado = ARN_Buscar(A, 55);

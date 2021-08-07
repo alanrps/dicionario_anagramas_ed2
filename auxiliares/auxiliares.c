@@ -1,9 +1,11 @@
-void minuscula(char* str){
-    int j;
-    for(j=0; str[j]; j++){
-            str[j] = tolower(str[j]);
-    }
-}
+// #include "auxiliares.h"
+
+// void minuscula(char* str){
+//     int j;
+//     for(j=0; str[j]; j++){
+//             str[j] = tolower(str[j]);
+//     }
+// }
 
 // node *file_to_vector(FILE *dicionario){
 //     char str[46];

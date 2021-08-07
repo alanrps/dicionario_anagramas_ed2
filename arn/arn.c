@@ -1,15 +1,30 @@
-#include "arn.h"
 #include <stdlib.h>
+#include <string.h>
 #include <stdio.h>
+#include "arn.h"
 
-ARN* ARN_Buscar(ARN* A, int chave) {
-  if (A == NULL) return NULL;
+// ARN* ARN_Buscar(ARN* A, int chave) {
+//   if (A == NULL) return NULL;
 
-  if (chave == A->chave) return A;
+//   if (chave == A->chave) return A;
   
-  if (chave < A->chave) return ARN_Buscar(A->esq, chave);
+//   if (chave < A->chave) return ARN_Buscar(A->esq, chave);
   
-  return ARN_Buscar(A->dir, chave);
+//   return ARN_Buscar(A->dir, chave);
+// }
+
+static ARN* ARN_Criar(char* chave, int valor){
+  ARN *no = malloc(sizeof(ARN));
+  String* p = calloc(47, sizeof(String));
+
+  no->chave = p; // Aponta para a posição alocada na heap
+  strcpy(no->chave->palavra, chave); // Copia o valor da string recebida
+  no->valor = valor;
+  no->cor = RUBRO;
+  no->dir = NULL;
+  no->esq = NULL;
+
+  return no;
 }
 
 void ARN_Imprimir(ARN* A, int inicio, char direcao) {
@@ -21,21 +36,10 @@ void ARN_Imprimir(ARN* A, int inicio, char direcao) {
     printf("\t");
   }
 
-  printf("(%c) %d\n", direcao, A->chave);
+  printf("(%c) %s\n", direcao, A->chave->palavra);
 
   ARN_Imprimir(A->dir, inicio + 1, 'd');
   ARN_Imprimir(A->esq, inicio - 1, 'e');
-}
-
-static ARN* ARN_Criar(int chave, int valor){
-  ARN *no = malloc(sizeof(ARN));
-  no->chave = chave;
-  no->valor = valor;
-  no->cor = RUBRO;
-  no->dir = NULL;
-  no->esq = NULL;
-
-  return no;
 }
 
 static inline int eh_rubro(ARN *A){
@@ -73,17 +77,27 @@ static void invercao_cores(ARN *A){
   A->dir->cor = NEGRO;
 }
 
-void ARN_Inserir_Recursivo(ARN **A, int chave, int valor){
+void ARN_Inserir_Recursivo(ARN **A, char* chave, int valor){
   if(*A == NULL){
     *A = ARN_Criar(chave, valor);
     return;
   }
 
-  if(chave < (*A)->chave) 
-    ARN_Inserir_Recursivo(&(*A)->esq, chave, valor);
-  if(chave > (*A)->chave)
-    ARN_Inserir_Recursivo(&(*A)->dir, chave, valor);
+  // 0 - Se as duas são iguais
+  // < 0 Se a primeira for menor que a segunda(s1 < s2)
+  // > 0 Se a primeira for maior que a segunda(s2 < s1)
+  int comp_chaves = strcmp(chave, (*A)->chave->palavra);
 
+  printf("%d\n", comp_chaves);
+  //chave < (*A)->chave
+  //chave > (*A)->chave
+
+  if(strcmp(chave, (*A)->chave->palavra) < 0) // Se a chave passada for menor do que a encontrada
+    ARN_Inserir_Recursivo(&(*A)->esq, chave, valor);
+  
+  if(strcmp(chave, (*A)->chave->palavra) > 0)
+    ARN_Inserir_Recursivo(&(*A)->dir, chave, valor); // Se a chave passada for menor do que a encontrada
+  
   if(eh_rubro((*A)->dir) && !eh_rubro((*A)->esq)){
     rot_esq(A);
   }
@@ -97,40 +111,40 @@ void ARN_Inserir_Recursivo(ARN **A, int chave, int valor){
   }
 }
 
-void ARN_Inserir(ARN **A, int chave, int valor){
+void ARN_Inserir(ARN **A, char* chave, int valor){
   ARN_Inserir_Recursivo(A, chave, valor);
   (*A)->cor = NEGRO;
 }
 
-int ARN_Altura(ARN *A){
-  if(A == NULL) return 0;
+// int ARN_Altura(ARN *A){
+//   if(A == NULL) return 0;
 
-  int alt_d = ARN_Altura(A->dir);
-  int alt_e = ARN_Altura(A->esq);
+//   int alt_d = ARN_Altura(A->dir);
+//   int alt_e = ARN_Altura(A->esq);
 
-  if(alt_e < alt_d){
-    if(A->cor == NEGRO) return alt_d+1;
-  }
-  else{
-    if(A->cor == NEGRO) return alt_e+1;
-  }
-}
+//   if(alt_e < alt_d){
+//     if(A->cor == NEGRO) return alt_d+1;
+//   }
+//   else{
+//     if(A->cor == NEGRO) return alt_e+1;
+//   }
+// }
 
-static void ARN_Sort_R(ARN *A, int *v, int *i){
-  if(A == NULL) return;
-  ARN_Sort_R(A->esq, v, i);
-  v[(*i)] = A->chave;
-  *i += 1;
-  ARN_Sort_R(A->dir, v, i);
-  free(A); 
-}
+// static void ARN_Sort_R(ARN *A, int *v, int *i){
+//   if(A == NULL) return;
+//   ARN_Sort_R(A->esq, v, i);
+//   v[(*i)] = A->chave;
+//   *i += 1;
+//   ARN_Sort_R(A->dir, v, i);
+//   free(A); 
+// }
 
-void ARN_Sort(int* v, int n, float *altura){
-  ARN *A = NULL;
-  for(int i = 0; i < n; i++) ARN_Inserir(&A , v[i], 0);
+// void ARN_Sort(int* v, int n, float *altura){
+//   ARN *A = NULL;
+//   for(int i = 0; i < n; i++) ARN_Inserir(&A , v[i], 0);
 
-  *altura += ARN_Altura(A);
+//   *altura += ARN_Altura(A);
 
-  int x = 0;
-  ARN_Sort_R(A, v, &x);
-}
+//   int x = 0;
+//   ARN_Sort_R(A, v, &x);
+// }

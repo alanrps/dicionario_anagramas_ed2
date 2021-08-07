@@ -1,1 +1,0 @@
-void minuscula(char* str);

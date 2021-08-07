@@ -6,6 +6,7 @@
 
 //A estrutura ILISTA_EL é responsável por armazenar um único elemento e o endereço do próximo elemento.
 typedef struct ILISTA_EL{
+    // String dado;
     int dado;
     struct ILISTA_EL* prox;
 } ILISTA_EL;
