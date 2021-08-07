@@ -9,8 +9,40 @@
 int main (int argc, char **argv) {
     ARN* A = NULL;
 
-    char* palavra;
+    char palavra[46];
+    char palavra_ordenada[46];
 
+    FILE* dicionario = fopen("./dicionario/dicionario.txt", "r");
+
+    if(dicionario == NULL){
+      printf("Erro ao abrir arquivo");
+      return 0;
+    }
+
+    char* result;
+    while (!feof(dicionario)){
+      result = fgets(palavra, 46, dicionario);
+
+      if(result){
+        minuscula(palavra);
+
+        strcpy(palavra_ordenada, palavra);
+
+        bubble_sort(palavra);
+        ARN_Inserir(&A, palavra_ordenada, palavra);
+      }
+      else{
+        break;
+      }
+    }
+
+    fclose(dicionario);
+    
+    printf("Arquivo percorrido com sucesso: altura %d", ARN_Altura(A));
+
+    // ARN_Imprimir(A, 2, '*');
+
+    
     // Recebe palavra
     // printf("Digite uma palavra: ");
     // scanf("%s", palavra);
@@ -26,17 +58,16 @@ int main (int argc, char **argv) {
     // Manipula a árvore rubro negra
     // Chave -> Valor odenado
     // Valor -> Valor
-    ARN_Inserir(&A, "amor", "amor");
-    ARN_Inserir(&A, "amor", "ramo");
-    ARN_Inserir(&A, "amor", "roma");
-    ARN_Inserir(&A, "guga", "guga");
+    // ARN_Inserir(&A, "amor", "ramo");
+    // ARN_Inserir(&A, "amor", "roma");
+    // ARN_Inserir(&A, "guga", "guga");
     // ARN_Inserir(&A, 8, 8);
     // ARN_Inserir(&A, 5, 5);
-    ARN_Imprimir(A, 2, '*');
+    // ARN_Imprimir(A, 2, '*');
 
-    ARN* no = ARN_Buscar(A, "amor");
+    // ARN* no = ARN_Buscar(A, "amor");
 
-    LST_Imprimir(no->valor);
+    // LST_Imprimir(no->valor);
 
     // if(dado->chave->palavra) printf("%s", dado->chave->palavra);
 

@@ -19,4 +19,4 @@ void ARN_Inserir(ARN **A, char* chave, char* valor);
 ARN* ARN_Buscar(ARN* A, char* chave);
 void ARN_Imprimir(ARN* A, int inicio, char direcao);
 // void ARN_Sort(int* v, int n, float *altura);
-// int ARN_Altura(ARN *A);
+int ARN_Altura(ARN *A);

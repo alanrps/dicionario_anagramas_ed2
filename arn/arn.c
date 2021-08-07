@@ -123,19 +123,19 @@ void ARN_Inserir(ARN **A, char* chave, char* valor){
   (*A)->cor = NEGRO;
 }
 
-// int ARN_Altura(ARN *A){
-//   if(A == NULL) return 0;
+int ARN_Altura(ARN *A){
+  if(A == NULL) return 0;
 
-//   int alt_d = ARN_Altura(A->dir);
-//   int alt_e = ARN_Altura(A->esq);
+  int alt_d = ARN_Altura(A->dir);
+  int alt_e = ARN_Altura(A->esq);
 
-//   if(alt_e < alt_d){
-//     if(A->cor == NEGRO) return alt_d+1;
-//   }
-//   else{
-//     if(A->cor == NEGRO) return alt_e+1;
-//   }
-// }
+  if(alt_e < alt_d){
+    if(A->cor == NEGRO) return alt_d+1;
+  }
+  else{
+    if(A->cor == NEGRO) return alt_e+1;
+  }
+}
 
 // static void ARN_Sort_R(ARN *A, int *v, int *i){
 //   if(A == NULL) return;
