@@ -1,6 +1,8 @@
-#include "lista.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
+#include "lista.h"
+#include "../auxiliares/auxiliares.h"
 
 ILISTA* LST_Criar(){
     ILISTA* novo;
@@ -27,7 +29,7 @@ int LST_Tamanho(ILISTA* L){
     return L->tamanho;
 }
 
-int LST_Inserir(ILISTA* L, int dado){
+int LST_Inserir(ILISTA* L, char* dado){
     ILISTA_EL* novo;
     int t;
 
@@ -36,8 +38,11 @@ int LST_Inserir(ILISTA* L, int dado){
     if(L != NULL){
         //Alocar um novo nó para guardar o dado
         novo = malloc(sizeof(ILISTA_EL));
+        String* p = calloc(47, sizeof(String));
+
         novo->prox = NULL;
-        novo->dado = dado;
+        novo->dado = p; // Aponta para a posição alocada na heap
+        strcpy(novo->dado->palavra, dado); // Copia o valor da string recebida
 
         //Caso 1: a lista é vazia.
         if(LST_Vazia(L)){
@@ -60,7 +65,7 @@ int LST_Inserir(ILISTA* L, int dado){
     return 0;
 }
 
-int LST_Buscar(ILISTA* L, int dado){
+int LST_Buscar(ILISTA* L, char* dado){
     ILISTA_EL* p;
 
     //Se a lista for vazia, não é possível queo item buscado esteja presente.
@@ -70,7 +75,7 @@ int LST_Buscar(ILISTA* L, int dado){
     //Fazer a busca linear pelo elemento
     for(p = L->primeiro; p != NULL; p = p->prox){
         //Caso o elemento for encontrado, retornar 1.
-        if(p->dado == dado)
+        if(strcmp(p->dado->palavra, dado) == 0)
             return 1;
     }
 
@@ -85,7 +90,7 @@ void LST_Imprimir(ILISTA *L){
     if(L != NULL){
         //Varrer a lista e imprimir todos os elementos.
         for(p = L->primeiro; p != NULL; p = p->prox){
-            printf("%d, ", p->dado );
+            printf("%s, ", p->dado->palavra);
         }
         printf("\n");
     }

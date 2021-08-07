@@ -3,11 +3,12 @@
 
 #ifndef LST_H_INCLUDED
 #define LST_H_INCLUDED
+#include "../auxiliares/auxiliares.h"
 
 //A estrutura ILISTA_EL é responsável por armazenar um único elemento e o endereço do próximo elemento.
 typedef struct ILISTA_EL{
-    // String dado;
-    int dado;
+    // int dado;
+    String* dado;
     struct ILISTA_EL* prox;
 } ILISTA_EL;
 
@@ -22,10 +23,10 @@ typedef struct ILISTA{
 ILISTA* LST_Criar();
 
 //LST_Inserir insere o elemento *dado* no final da lista *L*
-int LST_Inserir(ILISTA* L, int dado);
+int LST_Inserir(ILISTA* L, char* dado);
 
 //LST_Buscar retorna 1 se o elemento *dado* estiver na lista, ou caso contrário, 0.
-int LST_Buscar(ILISTA* L, int dado);
+int LST_Buscar(ILISTA* L, char* dado);
 
 //LST_Vazia retorna 1 se a lista *L* não tiver elementos, ou caso contrário, 0.
 int LST_Vazia(ILISTA* L);
