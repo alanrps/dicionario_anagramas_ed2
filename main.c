@@ -32,11 +32,11 @@ int main (int argc, char **argv) {
     ARN_Inserir(&A, "ormor", 1);
     // ARN_Inserir(&A, 8, 8);
     // ARN_Inserir(&A, 5, 5);
-    ARN_Imprimir(A, 2, '*');
+    // ARN_Imprimir(A, 2, '*');
 
-    // ARN* dado = ARN_Buscar(A, 55);
+    // ARN* dado = ARN_Buscar(A, "amor");
 
-    // if(!dado) printf("%s", dado);
+    // if(dado->chave->palavra) printf("%s", dado->chave->palavra);
 
 
     // Cria lista e insere dados
