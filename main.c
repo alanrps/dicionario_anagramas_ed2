@@ -19,7 +19,7 @@ int main (int argc, char *argv[]) {
     // scanf("%46s", palavra_escaneada);
     // printf("%s", palavra_escaneada);
 
-    FILE* dicionario = fopen("./dicionario/teste.txt", "r");
+    FILE* dicionario = fopen("./dicionario/dicionario.txt", "r");
 
     if(dicionario == NULL){
       printf("Erro ao abrir arquivo");
@@ -51,7 +51,11 @@ int main (int argc, char *argv[]) {
 
     fclose(dicionario);
 
+    // Inserir pelo scanf
+
     // ARN_Imprimir(A, 2, '*');
+
+    bubble_sort(argv[1]);
 
     ARN* no = ARN_Buscar(A, argv[1]);
 
