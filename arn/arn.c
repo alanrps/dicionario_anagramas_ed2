@@ -3,15 +3,15 @@
 #include <stdio.h>
 #include "arn.h"
 
-// ARN* ARN_Buscar(ARN* A, int chave) {
-//   if (A == NULL) return NULL;
+ARN* ARN_Buscar(ARN* A, char* chave) {
+  if (A == NULL) return NULL;
 
-//   if (chave == A->chave) return A;
+  if (strcmp(chave, A->chave->palavra) == 0) return A;
   
-//   if (chave < A->chave) return ARN_Buscar(A->esq, chave);
+  if (strcmp(chave, A->chave->palavra) < 0) return ARN_Buscar(A->esq, chave);
   
-//   return ARN_Buscar(A->dir, chave);
-// }
+  return ARN_Buscar(A->dir, chave);
+}
 
 static ARN* ARN_Criar(char* chave, int valor){
   ARN *no = malloc(sizeof(ARN));
@@ -88,7 +88,6 @@ void ARN_Inserir_Recursivo(ARN **A, char* chave, int valor){
   // > 0 Se a primeira for maior que a segunda(s2 < s1)
   int comp_chaves = strcmp(chave, (*A)->chave->palavra);
 
-  printf("%d\n", comp_chaves);
   //chave < (*A)->chave
   //chave > (*A)->chave
 
