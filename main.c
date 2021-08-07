@@ -6,13 +6,20 @@
 #include "lista/lista.h"
 #include "auxiliares/auxiliares.h"
 
-int main (int argc, char **argv) {
+int main (int argc, char *argv[]) {
     ARN* A = NULL;
 
     char palavra[46];
     char palavra_ordenada[46];
+    // char palavra_escaneada[46];
 
-    FILE* dicionario = fopen("./dicionario/dicionario.txt", "r");
+
+    // printf("%s", argv[1]);
+    // printf("%d", strlen(argv[1]));
+    // scanf("%46s", palavra_escaneada);
+    // printf("%s", palavra_escaneada);
+
+    FILE* dicionario = fopen("./dicionario/teste.txt", "r");
 
     if(dicionario == NULL){
       printf("Erro ao abrir arquivo");
@@ -24,11 +31,17 @@ int main (int argc, char **argv) {
       result = fgets(palavra, 46, dicionario);
 
       if(result){
+        palavra[strlen(palavra)-1] = 0;
+        
         minuscula(palavra);
 
         strcpy(palavra_ordenada, palavra);
 
-        bubble_sort(palavra);
+        bubble_sort(palavra_ordenada);
+
+        // printf("%s: %d", palavra, strlen(palavra));
+        // printf("%s: %d", palavra_ordenada, strlen(palavra));
+
         ARN_Inserir(&A, palavra_ordenada, palavra);
       }
       else{
@@ -37,11 +50,15 @@ int main (int argc, char **argv) {
     }
 
     fclose(dicionario);
-    
-    printf("Arquivo percorrido com sucesso: altura %d", ARN_Altura(A));
 
     // ARN_Imprimir(A, 2, '*');
 
+    ARN* no = ARN_Buscar(A, argv[1]);
+
+    if(no)
+      LST_Imprimir(no->valor);
+
+    // printf("Arquivo percorrido com sucesso: altura %d", ARN_Altura(A));
     
     // Recebe palavra
     // printf("Digite uma palavra: ");

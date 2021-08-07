@@ -95,6 +95,7 @@ void ARN_Inserir_Recursivo(ARN **A, char* chave, char* valor){
   if(comp_chaves == 0){
     LST_Inserir((*A)->valor, valor);
   }
+  
 
   //chave < (*A)->chave
   //chave > (*A)->chave
