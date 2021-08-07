@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdio.h>
 #include "arn.h"
+#include "../lista/lista.h"
 
 ARN* ARN_Buscar(ARN* A, char* chave) {
   if (A == NULL) return NULL;
@@ -13,13 +14,16 @@ ARN* ARN_Buscar(ARN* A, char* chave) {
   return ARN_Buscar(A->dir, chave);
 }
 
-static ARN* ARN_Criar(char* chave, int valor){
+static ARN* ARN_Criar(char* chave, char* valor){
   ARN *no = malloc(sizeof(ARN));
   String* p = calloc(47, sizeof(String));
 
   no->chave = p; // Aponta para a posição alocada na heap
   strcpy(no->chave->palavra, chave); // Copia o valor da string recebida
-  no->valor = valor;
+
+  no->valor = LST_Criar(); // Cria a lista de Strings
+  LST_Inserir(no->valor, valor); // Insere o primeiro elemento
+
   no->cor = RUBRO;
   no->dir = NULL;
   no->esq = NULL;
@@ -77,7 +81,7 @@ static void invercao_cores(ARN *A){
   A->dir->cor = NEGRO;
 }
 
-void ARN_Inserir_Recursivo(ARN **A, char* chave, int valor){
+void ARN_Inserir_Recursivo(ARN **A, char* chave, char* valor){
   if(*A == NULL){
     *A = ARN_Criar(chave, valor);
     return;
@@ -87,6 +91,10 @@ void ARN_Inserir_Recursivo(ARN **A, char* chave, int valor){
   // < 0 Se a primeira for menor que a segunda(s1 < s2)
   // > 0 Se a primeira for maior que a segunda(s2 < s1)
   int comp_chaves = strcmp(chave, (*A)->chave->palavra);
+
+  if(comp_chaves == 0){
+    LST_Inserir((*A)->valor, valor);
+  }
 
   //chave < (*A)->chave
   //chave > (*A)->chave
@@ -110,7 +118,7 @@ void ARN_Inserir_Recursivo(ARN **A, char* chave, int valor){
   }
 }
 
-void ARN_Inserir(ARN **A, char* chave, int valor){
+void ARN_Inserir(ARN **A, char* chave, char* valor){
   ARN_Inserir_Recursivo(A, chave, valor);
   (*A)->cor = NEGRO;
 }

@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "auxiliares.h": "c",
+        "*.tcc": "c",
+        "iomanip": "c",
+        "istream": "c",
+        "ostream": "c",
+        "sstream": "c",
+        "string.h": "c",
+        "lista.h": "c"
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
+}

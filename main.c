@@ -24,27 +24,32 @@ int main (int argc, char **argv) {
     // printf("%s", palavra);
 
     // Manipula a árvore rubro negra
-    // ARN_Inserir(&A, "amor", 10);
-    // ARN_Inserir(&A, "ramo", 1);
-    // ARN_Inserir(&A, "ormor", 1);
+    // Chave -> Valor odenado
+    // Valor -> Valor
+    ARN_Inserir(&A, "amor", "amor");
+    ARN_Inserir(&A, "amor", "ramo");
+    ARN_Inserir(&A, "amor", "roma");
+    ARN_Inserir(&A, "guga", "guga");
     // ARN_Inserir(&A, 8, 8);
     // ARN_Inserir(&A, 5, 5);
-    // ARN_Imprimir(A, 2, '*');
+    ARN_Imprimir(A, 2, '*');
 
-    // ARN* dado = ARN_Buscar(A, "amor");
+    ARN* no = ARN_Buscar(A, "amor");
+
+    LST_Imprimir(no->valor);
 
     // if(dado->chave->palavra) printf("%s", dado->chave->palavra);
 
 
     // Cria lista e insere dados
-    ILISTA* lista = LST_Criar();
-    int dado1 = LST_Inserir(lista, "alan");
-    int dado2 = LST_Inserir(lista, "joao");
-    int dado3 = LST_Inserir(lista, "matheus");
-    LST_Imprimir(lista);
+    // ILISTA* lista = LST_Criar();
+    // int dado1 = LST_Inserir(lista, "alan");
+    // int dado2 = LST_Inserir(lista, "joao");
+    // int dado3 = LST_Inserir(lista, "matheus");
+    // LST_Imprimir(lista);
 
-    int resultado = LST_Buscar(lista, "matheus");
-    printf("%d", resultado);
+    // int resultado = LST_Buscar(lista, "matheus");
+    // printf("%d", resultado);
 
     // Criar estrutura da palavra
     // Trocar valor da árvore pela lista
