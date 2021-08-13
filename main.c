@@ -6,18 +6,15 @@
 #include "lista/lista.h"
 #include "auxiliares/auxiliares.h"
 
+// Adicionar verificação para não deixar adicionar items repetidos -> perguntar se posso
+// ordenação
+
 int main (int argc, char *argv[]) {
     ARN* A = NULL;
 
     char palavra[46];
     char palavra_ordenada[46];
-    // char palavra_escaneada[46];
-
-
-    // printf("%s", argv[1]);
-    // printf("%d", strlen(argv[1]));
-    // scanf("%46s", palavra_escaneada);
-    // printf("%s", palavra_escaneada);
+    char* palavra_entrada = argv[1]; 
 
     FILE* dicionario = fopen("./dicionario/dicionario.txt", "r");
 
@@ -31,7 +28,7 @@ int main (int argc, char *argv[]) {
       result = fgets(palavra, 46, dicionario);
 
       if(result){
-        palavra[strlen(palavra)-1] = 0;
+        palavra[strlen(palavra) - 1] = 0;
         
         minuscula(palavra);
 
@@ -39,10 +36,16 @@ int main (int argc, char *argv[]) {
 
         bubble_sort(palavra_ordenada);
 
-        // printf("%s: %d", palavra, strlen(palavra));
-        // printf("%s: %d", palavra_ordenada, strlen(palavra));
+        ARN* no = ARN_Buscar(A, palavra_ordenada);
 
-        ARN_Inserir(&A, palavra_ordenada, palavra);
+        if(no){
+          int valueFound = LST_Buscar(no->valor, palavra);
+
+          if(!valueFound)
+            LST_Inserir(no->valor, palavra);
+        }else{
+          ARN_Inserir(&A, palavra_ordenada, palavra);
+        }
       }
       else{
         break;
@@ -51,75 +54,26 @@ int main (int argc, char *argv[]) {
 
     fclose(dicionario);
 
-    // Inserir pelo scanf
+    minuscula(palavra_entrada);
+    bubble_sort(palavra_entrada);
 
-    // ARN_Imprimir(A, 2, '*');
+    ARN* no = ARN_Buscar(A, palavra_entrada);
 
-    bubble_sort(argv[1]);
-
-    ARN* no = ARN_Buscar(A, argv[1]);
-
-    if(no)
+    if(no){
+      bubble_sort_palavras(no->valor);
       LST_Imprimir(no->valor);
-
-    // printf("Arquivo percorrido com sucesso: altura %d", ARN_Altura(A));
+    }
+    else
+      printf("Nenhum anagrama encontrado");
     
-    // Recebe palavra
-    // printf("Digite uma palavra: ");
-    // scanf("%s", palavra);
 
-    // strcpy(p->palavra, palavra);
+    // Funções auxiliares
+    
+    /* 
+     ARN_Imprimir(A, 2, '*');
+     printf("Arquivo percorrido com sucesso: altura %d", ARN_Altura(A));
+    */
 
-    // printf("%s", p->palavra);
-
-    // Ordena palavra
-    // bubble_sort(palavra);
-    // printf("%s", palavra);
-
-    // Manipula a árvore rubro negra
-    // Chave -> Valor odenado
-    // Valor -> Valor
-    // ARN_Inserir(&A, "amor", "ramo");
-    // ARN_Inserir(&A, "amor", "roma");
-    // ARN_Inserir(&A, "guga", "guga");
-    // ARN_Inserir(&A, 8, 8);
-    // ARN_Inserir(&A, 5, 5);
-    // ARN_Imprimir(A, 2, '*');
-
-    // ARN* no = ARN_Buscar(A, "amor");
-
-    // LST_Imprimir(no->valor);
-
-    // if(dado->chave->palavra) printf("%s", dado->chave->palavra);
-
-
-    // Cria lista e insere dados
-    // ILISTA* lista = LST_Criar();
-    // int dado1 = LST_Inserir(lista, "alan");
-    // int dado2 = LST_Inserir(lista, "joao");
-    // int dado3 = LST_Inserir(lista, "matheus");
-    // LST_Imprimir(lista);
-
-    // int resultado = LST_Buscar(lista, "matheus");
-    // printf("%d", resultado);
-
-    // Criar estrutura da palavra
-    // Trocar valor da árvore pela lista
-
-    // Inserção de palavra
-    // 1- Buscar chave ordenada na árvore
-    // - Se não existir "criar" a chave com a palavra ordenada, criar a lista e inserir a palavra 
-    // - Se existir adicionar no array
-
-    // Busca 
-    // 1- Ordenar a palavra recebida
-    // 2 - Buscar uma chave com a palavra
-    // --> Caso encontre
-    // - Ordenar array
-    // - Imprimir cada valor em uma linha
-    // --> Caso não encontre, retornar que não foi encontrado
-
-    // Ler valores do arquivo e adicionar a árvore
 
   return 0;
 }
