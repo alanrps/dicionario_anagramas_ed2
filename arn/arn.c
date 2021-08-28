@@ -16,7 +16,7 @@ ARN* ARN_Buscar(ARN* A, char* chave) {
 
 static ARN* ARN_Criar(char* chave, char* valor){
   ARN *no = malloc(sizeof(ARN));
-  String* p = calloc(47, sizeof(String));
+  String* p = calloc(46, sizeof(String));
 
   no->chave = p; // Aponta para a posição alocada na heap
   strcpy(no->chave->palavra, chave); // Copia o valor da string recebida
@@ -96,7 +96,6 @@ void ARN_Inserir_Recursivo(ARN **A, char* chave, char* valor){
     LST_Inserir((*A)->valor, valor);
   }
   
-
   //chave < (*A)->chave
   //chave > (*A)->chave
 
@@ -137,22 +136,3 @@ int ARN_Altura(ARN *A){
     if(A->cor == NEGRO) return alt_e+1;
   }
 }
-
-// static void ARN_Sort_R(ARN *A, int *v, int *i){
-//   if(A == NULL) return;
-//   ARN_Sort_R(A->esq, v, i);
-//   v[(*i)] = A->chave;
-//   *i += 1;
-//   ARN_Sort_R(A->dir, v, i);
-//   free(A); 
-// }
-
-// void ARN_Sort(int* v, int n, float *altura){
-//   ARN *A = NULL;
-//   for(int i = 0; i < n; i++) ARN_Inserir(&A , v[i], 0);
-
-//   *altura += ARN_Altura(A);
-
-//   int x = 0;
-//   ARN_Sort_R(A, v, &x);
-// }

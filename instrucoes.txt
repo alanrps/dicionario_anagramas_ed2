@@ -1,0 +1,7 @@
+# Compilar arquivos
+
+$ make
+
+# Execução
+
+$ ./main palavra_de_entrada

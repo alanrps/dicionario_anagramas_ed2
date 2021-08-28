@@ -6,9 +6,6 @@
 #include "lista/lista.h"
 #include "auxiliares/auxiliares.h"
 
-// Adicionar verificação para não deixar adicionar items repetidos -> perguntar se posso
-// ordenação
-
 int main (int argc, char *argv[]) {
     ARN* A = NULL;
 
@@ -60,20 +57,12 @@ int main (int argc, char *argv[]) {
     ARN* no = ARN_Buscar(A, palavra_entrada);
 
     if(no){
+      // LST_Imprimir(no->valor);
       bubble_sort_palavras(no->valor);
       LST_Imprimir(no->valor);
     }
     else
       printf("Nenhum anagrama encontrado");
-    
-
-    // Funções auxiliares
-    
-    /* 
-     ARN_Imprimir(A, 2, '*');
-     printf("Arquivo percorrido com sucesso: altura %d", ARN_Altura(A));
-    */
-
 
   return 0;
 }

@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <string.h>
-#include <ctype.h>
 
 void minuscula(char* str){
     for(int j = 0; j < strlen(str); j++){
